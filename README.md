@@ -1,4 +1,4 @@
-# Adapted from Flask Web App Tutorial
+# p-RoomMatch
 
 ## Setup & Installation
 
