@@ -17,6 +17,7 @@ class User(db.Model, UserMixin):
     first_name = db.Column(db.String(150))
     notes = db.relationship('Note')  # Relationship to notes created by the user
     questionnaire_response = db.relationship('QuestionnaireResponse', backref='user', uselist=False)
+    is_admin = db.Column(db.Boolean, default=False)  # Field to determine admin access to database
 
 
 class QuestionnaireResponse(db.Model):

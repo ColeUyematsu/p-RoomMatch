@@ -2,12 +2,12 @@ from flask import Blueprint, render_template, request, flash, redirect, url_for
 from .models import User
 from werkzeug.security import generate_password_hash
 from werkzeug.security import check_password_hash
-from . import db   ##means from __init__.py import db
+from . import db   #means from __init__.py import db
 from flask_login import login_user, login_required, logout_user, current_user
 
 
+# Create the Blueprint instance
 auth = Blueprint('auth', __name__)
-
 
 @auth.route('/login', methods=['GET', 'POST'])
 def login():
@@ -20,6 +20,10 @@ def login():
             if check_password_hash(user.password, password):
                 flash('Logged in successfully!', category='success')
                 login_user(user, remember=True)
+                # Admin view of website - show database data
+                if user.is_admin:
+                    flash('Logged in as Admin!', category='success')
+                    return redirect(url_for('admin.dashboard'))  # Redirect to admin dashboard
                 return redirect(url_for('views.home'))
             else:
                 flash('Incorrect password, try again.', category='error')

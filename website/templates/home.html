@@ -3,7 +3,15 @@
 {% block title %}Home{% endblock %}
 
 {% block content %}
-<h1 align="center">Notes</h1>
+<br />
+<h1 align="center">Welcome to p-RoomMatch!</h1>
+<br />
+<h3 alight="center">Fill out the questionnaire and get
+  connected with potential roommates based on your lifestyle.
+  The AI model will match you to 5 roommates at a time.
+  Text your matches before getting to school so you aren’t
+  living with a stranger.
+</h3>
 <ul class="list-group list-group-flush" id="notes">
   {% for note in user.notes %}
   <li class="list-group-item">
@@ -14,17 +22,16 @@
   </li>
   {% endfor %}
 </ul>
-<form method="POST">
-  <textarea name="note" id="note" class="form-control"></textarea>
-  <br />
-  <div align="center">
-    <button type="submit" class="btn btn-primary">Add Note</button>
-  </div>
-</form>
+<!--<form method="POST">-->
+<!--  <textarea name="note" id="note" class="form-control"></textarea>-->
+<!--  <br />-->
+<!--  <div align="center">-->
+<!--    <button type="submit" class="btn btn-primary">Add Note</button>-->
+<!--  </div>-->
+<!--</form>-->
 
 <!-- Button to navigate to the questionnaire -->
 <div align="center" style="margin-top: 20px;">
   <a href="{{ url_for('views.questionnaire') }}" class="btn btn-primary">Go to Questionnaire</a>
 </div>
-
 {% endblock %}

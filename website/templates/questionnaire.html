@@ -3,7 +3,8 @@
 {% block title %}Questionnaire{% endblock %}
 
 {% block content %}
-<h2>Complete the Questionnaire</h2>
+<br />
+<h2>The Questionnaire</h2>
 <form method="POST" action="{{ url_for('views.questionnaire') }}">
     {{ form.hidden_tag() }}
 
