@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Questionnaire</title>
+    <title>About p-RoomMatch</title>
     <style>
         /* Fullscreen setup */
         html, body {
@@ -39,7 +39,7 @@
             box-sizing: border-box;
         }
 
-        .navbar .nav-links {
+        .navbar .nav-links-left, .navbar .nav-links-right {
             display: flex;
             gap: 20px; /* Space between links */
         }
@@ -54,15 +54,13 @@
             text-decoration: underline;
         }
 
-        /* Scrollable content container */
+        /* Content Container */
         .content-container {
             position: relative;
             height: calc(100% - 60px); /* Adjust for navbar height */
-            overflow-y: auto;
             display: flex;
             justify-content: center;
-            align-items: flex-start; /* Align form to the top */
-            padding: 20px;
+            align-items: center;
             backdrop-filter: blur(8px);
             background-color: rgba(0, 0, 0, 0.5);
         }
@@ -75,59 +73,31 @@
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
             width: 90%;
             max-width: 800px;
+            text-align: left;
+            color: #2c3e50;
         }
 
         h1 {
             font-weight: 700;
-            color: #2c3e50;
-            margin-bottom: 20px;
-            text-align: center;
-        }
-
-        .form-group {
-            text-align: left;
             margin-bottom: 20px;
         }
 
-        label {
-            font-weight: bold;
-            margin-bottom: 5px;
-            display: inline-block;
-            color: #2c3e50;
-        }
-
-        input, select, textarea {
-            width: 100%;
-            padding: 10px;
-            margin-top: 5px;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-            box-sizing: border-box;
-        }
-
-        .btn-primary {
-            background-color: #0056b3;
-            color: white;
-            padding: 10px 20px;
-            border-radius: 5px;
-            border: none;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-            display: block;
-            margin: 0 auto;
-        }
-
-        .btn-primary:hover {
-            background-color: #004494;
-        }
-
-        .text-danger {
-            color: red;
-        }
-
-        ul.text-danger {
+        ul {
             list-style: none;
             padding: 0;
+        }
+
+        li {
+            margin-bottom: 10px;
+        }
+
+        a {
+            color: #0056b3;
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
         }
     </style>
 </head>
@@ -136,41 +106,40 @@
 
     <!-- Navbar -->
     <div class="navbar">
-        <div class="nav-links">
+        <div class="nav-links-left">
             <a href="/">Home</a>
             <a href="/about">About</a>
         </div>
-        <div class="nav-links">
+        <div class="nav-links-right">
+            {% if current_user.is_authenticated %}
             <a href="{{ url_for('views.questionnaire') }}">Questionnaire</a>
             <a href="/logout">Logout</a>
+            {% else %}
+            <a href="/login">Login</a>
+            <a href="/sign-up">Sign Up</a>
+            {% endif %}
         </div>
     </div>
 
     <!-- Content -->
     <div class="content-container">
         <div class="card">
-            <h1>The Questionnaire</h1>
-            <form method="POST" action="{{ url_for('views.questionnaire') }}">
-                {{ form.hidden_tag() }}
-
-                {% for field in form %}
-                {% if field.type != 'CSRFTokenField' and field.type != 'SubmitField' %}
-                <div class="form-group">
-                    <label for="{{ field.id }}">{{ field.label.text }}</label>
-                    {{ field(class="form-control", id=field.id) }}
-                    {% if field.errors %}
-                    <ul class="text-danger">
-                        {% for error in field.errors %}
-                        <li>{{ error }}</li>
-                        {% endfor %}
-                    </ul>
-                    {% endif %}
-                </div>
-                {% endif %}
-                {% endfor %}
-
-                <button type="submit" class="btn-primary">Submit</button>
-            </form>
+            <h1>About p-RoomMatch</h1>
+            <p>p-RoomMatch is a smart roommate-matching platform for first-year students. Our goal is to simplify the process of finding compatible roommates using AI-driven algorithms.</p>
+            <h3>Project Managers:</h3>
+            <ul>
+                <li>Cole Uyematsu - 2026 - Computer Science</li>
+                <li>Liam Hochman - 2026 - Computer Science</li>
+                <li>Caleb Mogyabiyedom - 2026 - Economics/Data Science Minor</li>
+            </ul>
+            <h3>Contacts:</h3>
+            <ul>
+                <li><a href="mailto:cjul2022@mymail.pomona.edu">cjul2022@mymail.pomona.edu</a></li>
+                <li><a href="mailto:lbhh2022@mymail.pomona.edu">lbhh2022@mymail.pomona.edu</a></li>
+                <li><a href="mailto:camg2022@mymail.pomona.edu">camg2022@mymail.pomona.edu</a></li>
+            </ul>
+            <h3>Overview:</h3>
+            <p>RoomMatch uses clustering algorithms like k-means and hierarchical clustering to analyze lifestyle data and recommend potential roommate matches. The goal is to foster harmonious living environments and reduce stress during the transition to college life.</p>
         </div>
     </div>
 </body>
