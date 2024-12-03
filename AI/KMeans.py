@@ -5,9 +5,9 @@ from sklearn.decomposition import PCA
 from sklearn.preprocessing import StandardScaler, normalize
 from scipy.spatial.distance import pdist, squareform
 
-X = pd.read_csv("test.csv") # reads csv file into pandas df
-names = X['NAME']
-X = X.drop('NAME', axis=1)
+X = pd.read_csv("data.csv") # reads csv file into pandas df
+names = X['id']
+X = X.drop(['id', 'user_id'], axis=1)
 
 # scaling the data
 scaledX = StandardScaler().fit_transform(X)

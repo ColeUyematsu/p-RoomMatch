@@ -5,11 +5,10 @@ from sklearn.cluster import AgglomerativeClustering
 from sklearn.preprocessing import StandardScaler, normalize
 from scipy.spatial.distance import pdist, squareform
 import scipy.cluster.hierarchy as shc
-import re
 
-X = pd.read_csv("test.csv") # load the dataset
-names = X['NAME'] # store the names to be used to label matches later
-X = X.drop('NAME', axis=1) # remove names column from the dataset (not used to train model)
+X = pd.read_csv("data.csv") # load the dataset
+names = X['id'] # store the names to be used to label matches later
+X = X.drop(columns=['id','user_id'], axis=1) # remove names column from the dataset (not used to train model)
 
 # Scale and normalize the data 
 # We scale and normalize to help make the dataset uniform and prevent certain features or data points from 

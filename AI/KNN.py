@@ -1,5 +1,4 @@
 import pandas as pd
-import numpy as np
 from sklearn.preprocessing import StandardScaler, normalize
 from sklearn.decomposition import PCA
 from sklearn.neighbors import NearestNeighbors
@@ -14,8 +13,8 @@ class RoommateMatcher:
         data_path (str): Path to CSV file containing personality data
         """
         self.data = pd.read_csv(data_path)
-        self.names = self.data['NAME']
-        self.X = self.data.drop('NAME', axis=1)
+        self.names = self.data['id']
+        self.X = self.data.drop(['id', 'user_data'], axis=1)
         self.processed_data = None
         self.knn_model = None
         self.prepare_data()
@@ -107,7 +106,7 @@ class RoommateMatcher:
 # Example usage
 def main():
     # Initialize the matcher
-    matcher = RoommateMatcher("test.csv")
+    matcher = RoommateMatcher("data.csv")
     
     # Find matches for a specific person
     person_name = "Person_2"  # Replace with actual name

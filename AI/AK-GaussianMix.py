@@ -1,7 +1,6 @@
 from sklearn.mixture import GaussianMixture
 from sklearn.preprocessing import StandardScaler
 import pandas as pd
-import numpy as np
 
 
 # GOAL: FIND THE 5 BEST MATCHES FOR A STUDENT (Person_2 for now) 
@@ -11,11 +10,11 @@ import numpy as np
 
 # Load the data that was previously stored
 # Data is read into dataframe df - 34 Columns are the actual questions. Rows are responses of each person for each of the questions.
-df = pd.read_csv("test.csv")
+df = pd.read_csv("data.csv")
 
 # Removes the NAME column - we have clean data to run clustering models
-names = df['NAME']
-X = df.drop('NAME', axis=1)
+names = df['id']
+X = df.drop(['id', 'user_id'], axis=1)
 
 # Standardize the data
 scaler = StandardScaler()
