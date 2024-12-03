@@ -27,6 +27,28 @@ def save_to_database(processed_df, db_path):
     finally:
         conn.close()
 
+# Path to the SQLite database
+database_path = "./instance/database.db"
+
+def delete_person_from_database(db_path, user_id):
+    """
+    Delete a person (entry) from the questionnaire_response table by user ID.
+
+    Parameters:
+        db_path (str): Path to the SQLite database file.
+        user_id (int): ID of the user to be deleted.
+    """
+    conn = sqlite3.connect(db_path)
+    try:
+        cursor = conn.cursor()
+        # SQL query to delete the user by ID
+        query = "DELETE FROM questionnaire_response WHERE id = ?"
+        cursor.execute(query, (user_id,))
+        conn.commit()  # Save changes
+        print(f"User with ID {user_id} has been deleted.")
+    finally:
+        conn.close()
+
 if __name__ == "__main__":
     # Fetch the latest data into a DataFrame
     raw_data = fetch_latest_data(database_path)
@@ -37,5 +59,6 @@ if __name__ == "__main__":
     # Save the modified DataFrame back to the database
     save_to_database(raw_data, database_path)
     print("Modified data saved to the 'ml_ready_data' table.")
+    delete_person_from_database(database_path, 2)
     
     raw_data.to_csv("data.csv", index=False)

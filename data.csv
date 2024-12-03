@@ -1,5 +1,4 @@
 id,follow_schedule,guests_comfort,romantic_focus,music_enjoyment,packing_amount,tv_importance,study_social,commitments_sleep,travel_offcampus,roommate_bedtime,binge_tv,similar_major_importance,quiet_hours,alarm_time,smoke_drink,appliances_usage,guests_frequency,room_decoration,roommate_closeness,family_visits,laundry_frequency,activity_priorities,social_events,bedtime_weekdays,noise_level,room_absence,ideal_temperature,windows_open,sleep_flexibility,guest_curfew,neighbors_importance,eat_room,conflict_handling,user_id
-1,1.0,2.0,3.0,4.0,5.0,6.0,7.0,8.0,9.0,10.0,1.0,2.0,3.0,4.0,5.0,6.0,7.0,8.0,9.0,10.0,1.0,2.0,3.0,4.0,5.0,6.0,7.0,8.0,9.0,10.0,1.0,2.0,4.0,1
-2,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,2
-3,1.0,2.0,3.0,4.0,5.0,6.0,7.0,8.0,9.0,10.0,1.0,2.0,3.0,4.0,5.0,6.0,7.0,8.0,9.0,10.0,1.0,2.0,3.0,4.0,5.0,6.0,7.0,8.0,9.0,10.0,1.0,2.0,3.0,3
-4,9.0,9.0,9.0,9.0,9.0,9.0,9.0,9.0,9.0,9.0,9.0,9.0,9.0,9.0,9.0,9.0,9.0,9.0,9.0,9.0,9.0,9.0,9.0,9.0,9.0,9.0,9.0,9.0,9.0,9.0,9.0,9.0,9.0,4
+1,1,2,3,4,5,6,7,8,9,10,1,2,3,4,5,6,7,8,9,10,1,2,3,4,5,6,7,8,9,10,1,2,4,1
+3,1,2,3,4,5,6,7,8,9,10,1,2,3,4,5,6,7,8,9,10,1,2,3,4,5,6,7,8,9,10,1,2,3,3
+4,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,4
