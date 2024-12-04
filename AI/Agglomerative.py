@@ -64,27 +64,22 @@ for cluster_id, members in clusters.items():
 
         for i, person_index in enumerate(indices):
             person_name = names[person_index]  # Get the person's name
-            closest_indices = distances[i].argsort()[1:6]  # Find the 5 closest members
-            raw_scores = [similarity_scores[i, j] for j in closest_indices]
+            closest_index = distances[i].argsort()[1]  # Find the closest match
+            closest_score = similarity_scores[i, closest_index]
 
-            min_score = min(raw_scores)
-            max_score = max(raw_scores)
-            adjusted_scores = [
-                0.5 + (score - min_score) ** 0.7 / (max_score - min_score) ** 0.7 * 0.5
-                for score in raw_scores
-            ]
+            # Adjust the score to a 0.5-1 scale
+            adjusted_score = 0.5 + closest_score * 0.5
 
-            matches = ", ".join(f"{members[j]} (score: {round(adjusted_scores[k], 2)})"
-                                for k, j in enumerate(closest_indices))
-
-            output_data[person_name] = matches
+            # Format the match with the adjusted score
+            match_name = members[closest_index]
+            output_data[person_name] = f"{match_name} (score: {round(adjusted_score, 2)})"
 
 # Save clustering results to a CSV file
-output_df = pd.DataFrame(list(output_data.items()), columns=['Person', 'Top Matches'])
-output_csv_path = os.path.join(script_dir, '..', 'Agglomerative_matches.csv')
+output_df = pd.DataFrame(list(output_data.items()), columns=['Person', 'Top Match'])
+output_csv_path = os.path.join(script_dir, '..', 'Agglomerative_top_matches.csv')
 output_df.to_csv(output_csv_path, index=False)
 
-print(f"Top matches with adjusted scores saved to '{output_csv_path}'.")
+print(f"Top matches saved to '{output_csv_path}'.")
 
 # Visualize clustering results
 plt.figure(figsize=(8, 8))

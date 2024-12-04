@@ -59,6 +59,5 @@ if __name__ == "__main__":
     # Save the modified DataFrame back to the database
     save_to_database(raw_data, database_path)
     print("Modified data saved to the 'ml_ready_data' table.")
-    delete_person_from_database(database_path, 2)
     
     raw_data.to_csv("data.csv", index=False)
