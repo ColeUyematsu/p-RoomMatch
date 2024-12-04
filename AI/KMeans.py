@@ -4,17 +4,27 @@ import matplotlib.pyplot as plt
 from sklearn.decomposition import PCA
 from sklearn.preprocessing import StandardScaler, normalize
 from scipy.spatial.distance import pdist, squareform
+import os
 
-X = pd.read_csv("data.csv") # reads csv file into pandas df
-names = X['id']
-X = X.drop(['id', 'user_id'], axis=1)
+# Define the relative path to data.csv from the AI folder
+script_dir = os.path.dirname(os.path.abspath(__file__))  # Directory of Agglomerative.py
+data_path = os.path.join(script_dir, '..', 'data.csv')  # Move up one level to parent folder
+
+# Load the dataset
+X = pd.read_csv(data_path)  # Load the dataset
+names = X['id']  # Store the names to be used to label matches later
+X = X.drop(columns=['id', 'user_id'], axis=1)  # Remove names column from the dataset (not used to train model)
+
+# Determine the number of clusters as participants divided by 2
+num_participants = len(X)  # Number of participants (rows in data.csv)
+num_clusters = max(2, num_participants // 2)  # Ensure at least 2 clusters
 
 # scaling the data
 scaledX = StandardScaler().fit_transform(X)
 normedX = pd.DataFrame(normalize(scaledX), columns=X.columns)
 
 # fitting the model
-kmeans = KMeans(n_clusters=20, random_state=0, n_init="auto").fit(normedX)
+kmeans = KMeans(n_clusters=num_participants, random_state=0, n_init="auto").fit(normedX)
 clusters = kmeans.cluster_centers_
 kmeans_labels = kmeans.predict(normedX)
 
@@ -25,7 +35,7 @@ plt.scatter(projectedX[:, 0], projectedX[:, 1], c="blue")
 plt.scatter(clusters[:, 0], clusters[:, 1], c="orange")
 
 # creating dictionary for every individual
-clusters_dict = {i: [] for i in range(20)}
+clusters_dict = {i: [] for i in range(num_participants)}
 for label, name in zip(kmeans_labels, names):
     clusters_dict[label].append(name)
 

@@ -32,7 +32,7 @@ class RoommateMatcher:
         self.knn_model = NearestNeighbors(n_neighbors=6, metric='euclidean')  # 6 because first match will be self
         self.knn_model.fit(self.processed_data)
         
-    def find_matches(self, person_name, n_matches=5):
+    def find_matches(self, person_name, n_matches=1):
         """
         Find the top matches for a given person.
         
@@ -64,7 +64,7 @@ class RoommateMatcher:
         
         return matches[:n_matches]
     
-    def visualize_matches(self, person_name, n_matches=5):
+    def visualize_matches(self, person_name, n_matches=1):
         """
         Create a PCA visualization of all individuals, highlighting the matches for a given person.
         

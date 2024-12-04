@@ -1,6 +1,7 @@
 from sklearn.mixture import GaussianMixture
 from sklearn.preprocessing import StandardScaler
 import pandas as pd
+import os
 
 
 # GOAL: FIND THE 5 BEST MATCHES FOR A STUDENT (Person_2 for now) 
@@ -10,18 +11,21 @@ import pandas as pd
 
 # Load the data that was previously stored
 # Data is read into dataframe df - 34 Columns are the actual questions. Rows are responses of each person for each of the questions.
-df = pd.read_csv("data.csv")
+script_dir = os.path.dirname(os.path.abspath(__file__))  # Directory of Agglomerative.py
+data_path = os.path.join(script_dir, '..', 'data.csv')  # Move up one level to parent folder
 
-# Removes the NAME column - we have clean data to run clustering models
-names = df['id']
-X = df.drop(['id', 'user_id'], axis=1)
+# Load the dataset
+df = pd.read_csv(data_path)  # Load the dataset
+names = df['id']  # Store the names to be used to label matches later
+X = df.drop(columns=['id', 'user_id'], axis=1)  # Remove names column from the dataset (not used to train model)
+clusters = len(X) // 2
 
 # Standardize the data
 scaler = StandardScaler()
 X_scaled = scaler.fit_transform(X)
 
 # Fit GMM
-gmm = GaussianMixture(n_components=5, random_state=42)  # n_components = 5. GMM will create 5 clusters.
+gmm = GaussianMixture(n_components=clusters, random_state=42)  # n_components = 5. GMM will create 5 clusters.
 gmm.fit(X_scaled)
 
 # Predict cluster memberships
@@ -49,7 +53,7 @@ names_in_cluster = names[df['Cluster'] == student_cluster]
 
 # Fit KNN on the cluster
 # Will find the 6 nearest neighbors for Person_2 and then drop Person_2 from the list - get the 5 best matches
-knn = NearestNeighbors(n_neighbors=6, metric='euclidean')
+knn = NearestNeighbors(n_neighbors=1, metric='euclidean')
 knn.fit(cluster_students)
 
 # Find nearest neighbors within the cluster
